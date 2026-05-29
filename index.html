@@ -243,6 +243,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="form-group"><label class="form-label">Cargo</label><input class="form-input" id="m-cargo" placeholder="Cargo del contacto"></div>
       <div class="form-group"><label class="form-label">Email del contacto</label><input class="form-input" id="m-email" type="email" placeholder="contacto@empresa.com"></div>
       <div class="form-group"><label class="form-label">Celular</label><input class="form-input" id="m-celular" placeholder="+54 11 0000-0000"></div>
+      <div class="form-group"><label class="form-label">Nro. de presupuesto</label><input class="form-input" id="m-nropresup" placeholder="Ej: P-2026-001"></div>
+      <div class="form-group"><label class="form-label">Multi</label><input class="form-input" id="m-multi" placeholder="Ej: 1,5"></div>
       <div class="form-group"><label class="form-label">Vendedor</label><select class="form-select" id="m-vend"></select></div>
       <div class="form-group"><label class="form-label">Etapa</label><select class="form-select" id="m-etapa"></select></div>
     </div>
@@ -469,7 +471,7 @@ function dealHTML(d) {
 // ═══════════════════════════════════════
 // DEAL CRUD
 // ═══════════════════════════════════════
-function openNew(){g('m-id').value='';g('m-deal-title').textContent='Nuevo negocio';['m-empresa','m-proyecto','m-tipo','m-monto','m-falta','m-fcierre','m-contacto','m-cargo','m-email','m-celular'].forEach(x=>g(x).value='');g('m-vend').value='';g('m-etapa').value='prospecto';g('m-falta').value=today();show('m-deal');}
+function openNew(){g('m-id').value='';g('m-deal-title').textContent='Nuevo negocio';['m-empresa','m-proyecto','m-tipo','m-monto','m-falta','m-fcierre','m-contacto','m-cargo','m-email','m-celular','m-nropresup','m-multi'].forEach(x=>g(x).value='');g('m-vend').value='';g('m-etapa').value='prospecto';g('m-falta').value=today();show('m-deal');}
 
 function openEdit(id){
   const d=deals.find(x=>x.id===id); if(!d)return;
@@ -479,6 +481,8 @@ function openEdit(id){
   g('m-falta').value=d.fechaAlta||d.fecha_alta||''; g('m-fcierre').value=d.fechaCierre||d.fecha_cierre||'';
   g('m-contacto').value=d.contacto||''; g('m-cargo').value=d.cargo||'';
   g('m-email').value=d.email||''; g('m-celular').value=d.celular||'';
+  g('m-nropresup').value=d.nro_presupuesto||'';
+  g('m-multi').value=d.multi||'';
   g('m-vend').value=d.vendedor||''; g('m-etapa').value=d.etapa||'prospecto';
   show('m-deal');
 }
@@ -494,6 +498,7 @@ async function saveD(){
     fecha_alta:g('m-falta').value||null, fecha_cierre:g('m-fcierre').value||null,
     contacto:g('m-contacto').value.trim(), cargo:g('m-cargo').value.trim(),
     email:g('m-email').value.trim(), celular:g('m-celular').value.trim(),
+    nro_presupuesto:g('m-nropresup').value.trim()||null, multi:g('m-multi').value||null,
     vendedor:g('m-vend').value, etapa:g('m-etapa').value,
     updated_at: new Date().toISOString()
   };
